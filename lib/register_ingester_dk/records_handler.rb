@@ -3,6 +3,8 @@ require 'register_sources_dk/config/elasticsearch'
 require 'register_sources_dk/repositories/deltagerperson_repository'
 require 'register_ingester_dk/records_producer'
 
+require 'register_common/compressors/gzip_writer'
+
 module RegisterIngesterDk
   class RecordsHandler
     def initialize(repository: nil, producer: nil, bods_publisher: nil, entity_resolver: nil, bods_mapper: nil)
@@ -16,7 +18,6 @@ module RegisterIngesterDk
 
       return if new_records.empty?
 
-      print("Inserting new records: ", records.map(&:to_h), "\n\n")
       producer.produce(new_records)
       producer.finalize
 
