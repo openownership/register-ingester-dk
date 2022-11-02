@@ -14,7 +14,7 @@ module RegisterIngesterDk
     end
 
     def handle_records(records)
-      new_records = records # records.reject { |record| repository.get(record.etag) }
+      new_records = records.reject { |record| repository.get(record.etag) }
 
       return if new_records.empty?
 
