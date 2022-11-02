@@ -16,6 +16,7 @@ services:
       - DK_CVR_USERNAME
       - DK_CVR_PASSWORD
       - DK_STREAM
+      - BODS_S3_BUCKET_NAME
     restart: always
 
   register_ingester_dk_es:

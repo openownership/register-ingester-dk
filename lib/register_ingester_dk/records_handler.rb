@@ -14,13 +14,14 @@ module RegisterIngesterDk
     end
 
     def handle_records(records)
-      new_records = records.reject { |record| repository.get(record.etag) }
+      new_records = records # records.reject { |record| repository.get(record.etag) }
 
       return if new_records.empty?
 
       producer.produce(new_records)
       producer.finalize
 
+      print("Storing #{new_records.length} new records\n")
       repository.store(new_records)
     end
 
