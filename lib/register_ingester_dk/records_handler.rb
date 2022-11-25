@@ -7,7 +7,7 @@ require 'register_common/compressors/gzip_writer'
 
 module RegisterIngesterDk
   class RecordsHandler
-    def initialize(repository: nil, producer: nil, bods_publisher: nil, entity_resolver: nil, bods_mapper: nil)
+    def initialize(repository: nil, producer: nil)
       @repository = repository || RegisterSourcesDk::Repositories::DeltagerpersonRepository.new(
         client: RegisterSourcesDk::Config::ELASTICSEARCH_CLIENT)
       @producer = producer || RecordsProducer.new
@@ -21,7 +21,6 @@ module RegisterIngesterDk
       producer.produce(new_records)
       producer.finalize
 
-      print("Storing #{new_records.length} new records\n")
       repository.store(new_records)
     end
 

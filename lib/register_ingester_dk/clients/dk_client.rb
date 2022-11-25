@@ -1,3 +1,4 @@
+require 'active_support/core_ext/object/blank'
 require 'elasticsearch'
 
 module RegisterIngesterDk
