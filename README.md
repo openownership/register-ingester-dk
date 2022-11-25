@@ -1,5 +1,7 @@
 # Register Ingester DK
 
+Register Ingester DK is an application designed for use with beneficial ownership data from Denmark's Central Business Register published by the Danish Business Authority.
+
 ## One-time Setup
 
 Ingest indexes:
