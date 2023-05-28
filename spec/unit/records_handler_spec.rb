@@ -2,7 +2,7 @@ require 'json'
 require 'register_ingester_dk/records_handler'
 
 RSpec.describe RegisterIngesterDk::RecordsHandler do
-  subject { described_class.new(repository: repository, producer: producer) }
+  subject { described_class.new(repository:, producer:) }
 
   let(:repository) { double 'repository' }
   let(:producer) { double 'producer' }
@@ -21,7 +21,7 @@ RSpec.describe RegisterIngesterDk::RecordsHandler do
         subject.handle_records records
       end
     end
-  
+
     context 'when all provided records already exists in the database' do
       it 'does not produce any records' do
         expect(repository).to receive(:get).with(records[0].etag).and_return 'something1'

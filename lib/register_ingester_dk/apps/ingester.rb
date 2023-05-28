@@ -8,15 +8,15 @@ require 'register_ingester_dk/records_handler'
 module RegisterIngesterDk
   module Apps
     class Ingester
-      CHUNK_SIZE=50
+      CHUNK_SIZE = 50
 
-      def self.bash_call(args)
+      def self.bash_call(_args)
         Ingester.new.call
       end
 
       def initialize(records_handler: nil, dk_client: nil)
         @records_handler = records_handler || RecordsHandler.new
-        @dk_client = dk_client || Clients::DkClient.new(ENV['DK_CVR_USERNAME'], ENV['DK_CVR_PASSWORD'])
+        @dk_client = dk_client || Clients::DkClient.new(ENV.fetch('DK_CVR_USERNAME', nil), ENV.fetch('DK_CVR_PASSWORD', nil))
       end
 
       def call
