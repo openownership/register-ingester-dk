@@ -9,7 +9,8 @@ module RegisterIngesterDk
   class RecordsHandler
     def initialize(repository: nil, producer: nil)
       @repository = repository || RegisterSourcesDk::Repositories::DeltagerpersonRepository.new(
-        client: RegisterSourcesDk::Config::ELASTICSEARCH_CLIENT)
+        client: RegisterSourcesDk::Config::ELASTICSEARCH_CLIENT,
+      )
       @producer = producer || RecordsProducer.new
     end
 

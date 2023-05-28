@@ -51,10 +51,10 @@ module RegisterIngesterDk
         results = @client.scroll(
           body: {
             scroll: SCROLL_DURATION,
-            scroll_id: scroll_id,
+            scroll_id:,
           },
         )
-        duration = (Time.now.utc - start) * 1000
+        (Time.now.utc - start)
         # Rails.logger.info "[#{self.class.name}] Scrolled ElasticSearch in #{duration.round}ms"
         results
       end

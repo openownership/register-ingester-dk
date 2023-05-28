@@ -4,15 +4,16 @@ require 'register_ingester_dk/records_producer'
 RSpec.describe RegisterIngesterDk::RecordsProducer do
   subject do
     described_class.new(
-      stream_name: stream_name,
-      kinesis_adapter: kinesis_adapter,
-      s3_adapter: s3_adapter,
-      buffer_size: buffer_size,
-      serializer: serializer
+      stream_name:,
+      kinesis_adapter:,
+      s3_adapter:,
+      buffer_size:,
+      serializer:,
     )
   end
 
   let(:stream_name) { double 'stream_name' }
+  let(:records) { [double('record1'), double('record2')] }
   let(:kinesis_adapter) { double 'kinesis_adapter' }
   let(:s3_adapter) { double 's3_adapter' }
   let(:buffer_size) { double 'buffer_size' }
@@ -21,17 +22,15 @@ RSpec.describe RegisterIngesterDk::RecordsProducer do
 
   before do
     allow(RegisterCommon::Services::Publisher).to receive(:new).with(
-      stream_name: stream_name,
-      kinesis_adapter: kinesis_adapter,
-      buffer_size: buffer_size,
-      serializer: serializer,
-      s3_adapter: s3_adapter,
+      stream_name:,
+      kinesis_adapter:,
+      buffer_size:,
+      serializer:,
+      s3_adapter:,
       s3_prefix: 'large-dk',
-      s3_bucket: ENV['BODS_S3_BUCKET_NAME'],
+      s3_bucket: ENV.fetch('BODS_S3_BUCKET_NAME', nil),
     ).and_return fake_publisher
   end
-
-  let(:records) { [double('record1'), double('record2')] }
 
   describe '#produce' do
     context 'when stream_name not provided' do
