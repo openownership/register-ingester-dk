@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_dk/clients/dk_client'
 
 RSpec.describe RegisterIngesterDk::Clients::DkClient do
@@ -16,17 +18,17 @@ RSpec.describe RegisterIngesterDk::Clients::DkClient do
         'hits' => {
           'hits' => [
             { '_source' => { 'Vrdeltagerperson' => {} } },
-            { '_source' => { 'Vrdeltagerperson' => {} } },
-          ],
-        },
+            { '_source' => { 'Vrdeltagerperson' => {} } }
+          ]
+        }
       }
     end
 
     let :second_results do
       {
         'hits' => {
-          'hits' => [{ '_source' => { 'Vrdeltagerperson' => {} } }],
-        },
+          'hits' => [{ '_source' => { 'Vrdeltagerperson' => {} } }]
+        }
       }
     end
 

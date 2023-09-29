@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'register_ingester_dk/apps/ingester'
 
@@ -11,11 +13,13 @@ RSpec.describe RegisterIngesterDk::Apps::Ingester do
     [JSON.parse(File.read('./spec/fixtures/dk_record.json'))]
   end
 
+  # rubocop:disable RSpec/ExpectInHook
   before do
     expect(dk_client).to receive(:all_records).and_return(
-      records,
+      records
     )
   end
+  # rubocop:enable RSpec/ExpectInHook
 
   describe '#call' do
     context 'when records are empty' do
