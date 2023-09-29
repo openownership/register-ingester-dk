@@ -6,7 +6,7 @@ Register Ingester DK is an application designed for use with beneficial ownershi
 
 Ingest indexes:
 ```
-bin/run setup_indexes
+bin/run create-indexes
 ```
 
 ## Ingesting Snapshots
