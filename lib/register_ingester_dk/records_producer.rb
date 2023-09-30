@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_dk/config/settings'
 require 'register_ingester_dk/config/adapters'
 require 'register_ingester_dk/record_serializer'
@@ -13,16 +15,16 @@ module RegisterIngesterDk
       serializer ||= RecordSerializer.new
 
       @publisher = if stream_name.present?
-        RegisterCommon::Services::Publisher.new(
-          stream_name:,
-          kinesis_adapter:,
-          buffer_size:,
-          serializer:,
-          s3_adapter:,
-          s3_prefix: 'large-dk',
-          s3_bucket: ENV.fetch('BODS_S3_BUCKET_NAME', nil),
-        )
-      end
+                     RegisterCommon::Services::Publisher.new(
+                       stream_name:,
+                       kinesis_adapter:,
+                       buffer_size:,
+                       serializer:,
+                       s3_adapter:,
+                       s3_prefix: 'large-dk',
+                       s3_bucket: ENV.fetch('BODS_S3_BUCKET_NAME', nil)
+                     )
+                   end
     end
 
     def produce(records)

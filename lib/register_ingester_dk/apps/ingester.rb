@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_dk/config/settings'
 require 'register_ingester_dk/config/adapters'
 
@@ -16,7 +18,8 @@ module RegisterIngesterDk
 
       def initialize(records_handler: nil, dk_client: nil)
         @records_handler = records_handler || RecordsHandler.new
-        @dk_client = dk_client || Clients::DkClient.new(ENV.fetch('DK_CVR_USERNAME', nil), ENV.fetch('DK_CVR_PASSWORD', nil))
+        @dk_client = dk_client || Clients::DkClient.new(ENV.fetch('DK_CVR_USERNAME', nil),
+                                                        ENV.fetch('DK_CVR_PASSWORD', nil))
       end
 
       def call

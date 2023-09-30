@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/core_ext/object/blank'
 require 'elasticsearch'
 
@@ -5,11 +7,11 @@ module RegisterIngesterDk
   module Clients
     class DkClient
       PAGE_SIZE = 500
-      SCROLL_DURATION = '10m'.freeze
+      SCROLL_DURATION = '10m'
 
       def initialize(username, password)
         @client = Elasticsearch::Client.new(
-          url: "http://#{username}:#{password}@distribution.virk.dk:80",
+          url: "http://#{username}:#{password}@distribution.virk.dk:80"
         )
       end
 
@@ -37,12 +39,12 @@ module RegisterIngesterDk
           body: {
             query: {
               match: {
-                'Vrdeltagerperson.enhedstype': 'PERSON',
-              },
+                'Vrdeltagerperson.enhedstype': 'PERSON'
+              }
             },
             sort: ['_doc'],
-            size: PAGE_SIZE,
-          },
+            size: PAGE_SIZE
+          }
         )
       end
 
@@ -51,8 +53,8 @@ module RegisterIngesterDk
         results = @client.scroll(
           body: {
             scroll: SCROLL_DURATION,
-            scroll_id:,
-          },
+            scroll_id:
+          }
         )
         (Time.now.utc - start)
         # Rails.logger.info "[#{self.class.name}] Scrolled ElasticSearch in #{duration.round}ms"

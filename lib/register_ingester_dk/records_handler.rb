@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'register_ingester_dk/config/settings'
 require 'register_sources_dk/config/elasticsearch'
 require 'register_sources_dk/repositories/deltagerperson_repository'
@@ -9,7 +11,7 @@ module RegisterIngesterDk
   class RecordsHandler
     def initialize(repository: nil, producer: nil)
       @repository = repository || RegisterSourcesDk::Repositories::DeltagerpersonRepository.new(
-        client: RegisterSourcesDk::Config::ELASTICSEARCH_CLIENT,
+        client: RegisterSourcesDk::Config::ELASTICSEARCH_CLIENT
       )
       @producer = producer || RecordsProducer.new
     end

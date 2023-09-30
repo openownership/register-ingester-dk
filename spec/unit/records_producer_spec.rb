@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'register_ingester_dk/records_producer'
 
@@ -8,7 +10,7 @@ RSpec.describe RegisterIngesterDk::RecordsProducer do
       kinesis_adapter:,
       s3_adapter:,
       buffer_size:,
-      serializer:,
+      serializer:
     )
   end
 
@@ -28,7 +30,7 @@ RSpec.describe RegisterIngesterDk::RecordsProducer do
       serializer:,
       s3_adapter:,
       s3_prefix: 'large-dk',
-      s3_bucket: ENV.fetch('BODS_S3_BUCKET_NAME', nil),
+      s3_bucket: ENV.fetch('BODS_S3_BUCKET_NAME', nil)
     ).and_return fake_publisher
   end
 
