@@ -6,7 +6,7 @@ require 'elasticsearch'
 module RegisterIngesterDk
   module Clients
     class DkClient
-      PAGE_SIZE = 500
+      PAGE_SIZE       = 500
       SCROLL_DURATION = '10m'
 
       def initialize(username, password)
@@ -57,7 +57,6 @@ module RegisterIngesterDk
           }
         )
         (Time.now.utc - start)
-        # Rails.logger.info "[#{self.class.name}] Scrolled ElasticSearch in #{duration.round}ms"
         results
       end
 
