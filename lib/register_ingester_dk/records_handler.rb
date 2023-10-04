@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'register_ingester_dk/config/settings'
+require 'register_common/compressors/gzip_writer'
 require 'register_sources_dk/config/elasticsearch'
 require 'register_sources_dk/repositories/deltagerperson_repository'
-require 'register_ingester_dk/records_producer'
 
-require 'register_common/compressors/gzip_writer'
+require_relative 'config/settings'
+require_relative 'records_producer'
 
 module RegisterIngesterDk
   class RecordsHandler
