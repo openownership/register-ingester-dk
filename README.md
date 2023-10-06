@@ -1,55 +1,39 @@
 # Register Ingester DK
 
-Register Ingester DK is an application designed for use with beneficial ownership data from Denmark's Central Business Register published by the Danish Business Authority.
+Register Ingester DK is a data ingester for the [OpenOwnership](https://www.openownership.org/en/) [Register](https://github.com/openownership/register) project. It processes bulk data published in the Central Business Register published by the Danish Business Authority in Denmark, and ingests records into [Elasticsearch](https://www.elastic.co/elasticsearch/). Optionally, it can also publish new records to [AWS Kinesis](https://aws.amazon.com/kinesis/). It uses raw records only, and doesn't do any conversion into the [Beneficial Ownership Data Standard (BODS)](https://www.openownership.org/en/topics/beneficial-ownership-data-standard/) format.
 
-## One-time Setup
+## Installation
 
-Ingest indexes:
-```
-bin/run create-indexes
-```
+Install and boot [Register](https://github.com/openownership/register).
 
-## Ingesting Snapshots
+Configure your environment using the example file:
 
-### 1. Ingest
-
-```
-bin/run ingest
-bin/run ingest
+```sh
+cp .env.example .env
 ```
 
-If the DK_STREAM key is set, new records will also be published to the AWS Kinesis Stream.
+- `DK_CVR_PASSWORD`: DK Elasticsearch source password
+- `DK_CVR_USERNAME`: DK Elasticsearch source username
+- `DK_STREAM`: AWS Kinesis stream to which to publish new records (optional)
+
+Create the Elasticsearch indexes:
+
+```sh
+docker compose run ingester-dk create-indexes
+```
 
 ## Testing
 
-First build the docker image with:
-```
-bin/build
-```
-Then tests can be executed by running:
-```
-bin/test
+Run the tests:
+
+```sh
+docker compose run ingester-dk test
 ```
 
-## Configuration
+## Usage
 
+To ingest records:
+
+```sh
+docker compose run ingester-dk ingest
 ```
-BODS_AWS_REGION=
-BODS_AWS_ACCESS_KEY_ID=
-BODS_AWS_SECRET_ACCESS_KEY=
-
-ELASTICSEARCH_HOST=
-ELASTICSEARCH_PORT=443
-ELASTICSEARCH_PROTOCOL=https
-ELASTICSEARCH_SSL_VERIFY=true
-ELASTICSEARCH_PASSWORD=
-
-DK_CVR_USERNAME=
-DK_CVR_PASSWORD=
-DK_STREAM=
-```
-
-- Elasticsearch credentials - these must be set
-- DK_CVR_USERNAME - This is username for the DK Elasticsearch source
-- DK_CVR_PASSWORD - This is username for the DK Elasticsearch source
-- DK_STREAM - If this is set, newly discovered records (ie ones not previously ingested) will be published to the AWS Kinesis stream with this name
