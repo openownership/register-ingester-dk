@@ -13,7 +13,7 @@ module RegisterIngesterDk
       @repository = repository || RegisterSourcesDk::Repositories::DeltagerpersonRepository.new(
         client: RegisterSourcesDk::Config::ELASTICSEARCH_CLIENT
       )
-      @producer = producer || RecordsProducer.new
+      @producer = producer || RecordsProducer.new(stream_name: ENV.fetch('DK_STREAM', nil))
     end
 
     def handle_records(records)
