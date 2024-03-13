@@ -6,4 +6,4 @@ require 'bundler/setup'
 require 'register_ingester_dk/config/settings'
 require 'register_sources_dk/services/es_index_creator'
 
-RegisterSourcesDk::Services::EsIndexCreator.new.create_index
+RegisterSourcesDk::Services::EsIndexCreator.new.create_index(RegisterSourcesDk::Config::ELASTICSEARCH_INDEX)
