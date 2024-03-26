@@ -32,14 +32,22 @@ RSpec.describe RegisterIngesterDk::Clients::DkClient do
       }
     end
 
+    let :empty_results do
+      {
+        'hits' => {
+          'hits' => []
+        }
+      }
+    end
+
     before do
       allow(elasticsearch_client).to receive(:search)
+        .with(hash_including(scroll: '10m'))
         .and_return(first_results)
 
       allow(elasticsearch_client).to receive(:scroll)
-        .with(hash_including(body: hash_including(scroll_id: 's123')))
-        .and_return(second_results)
-        .once
+        .with(body: { scroll_id: 's123' }, scroll: '5m')
+        .and_return(second_results, empty_results)
     end
 
     it 'returns an enumerator' do

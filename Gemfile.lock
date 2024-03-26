@@ -19,7 +19,7 @@ GIT
 
 GIT
   remote: https://github.com/openownership/register-sources-dk.git
-  revision: 5d85191016e61cee7cbcc4baac2ac3ee6e1b591a
+  revision: 571b60bcfad582daf318af99ee5254f1062709d8
   specs:
     register_sources_dk (0.1.0)
       activesupport (>= 6, < 8)
