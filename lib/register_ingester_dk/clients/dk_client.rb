@@ -7,6 +7,8 @@ require 'register_common/elasticsearch/query'
 module RegisterIngesterDk
   module Clients
     class DkClient
+      PAGE_SIZE = 500
+
       def initialize(username, password)
         @client = Elasticsearch::Client.new(
           url: "http://#{username}:#{password}@distribution.virk.dk:80"
@@ -23,7 +25,8 @@ module RegisterIngesterDk
                 'Vrdeltagerperson.enhedstype': 'PERSON'
               }
             },
-            sort: ['_doc']
+            sort: ['_doc'],
+            size: PAGE_SIZE
           }
         }
         Enumerator.new do |yielder|
