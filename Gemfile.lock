@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/openownership/register-common.git
-  revision: dc0b22335e9e903438c110eba35575d42899e848
+  revision: c9f32a1e6eefe2a17f80a2759a72490ad389d7ae
   specs:
     register_common (0.1.0)
       activesupport (>= 6, < 8)
