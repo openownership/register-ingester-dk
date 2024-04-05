@@ -26,6 +26,7 @@ RSpec.describe RegisterIngesterDk::Clients::DkClient do
 
     let :second_results do
       {
+        '_scroll_id' => 's124',
         'hits' => {
           'hits' => [{ '_source' => { 'Vrdeltagerperson' => {} } }]
         }
@@ -47,7 +48,11 @@ RSpec.describe RegisterIngesterDk::Clients::DkClient do
 
       allow(elasticsearch_client).to receive(:scroll)
         .with(body: { scroll_id: 's123' }, scroll: '10m')
-        .and_return(second_results, empty_results)
+        .and_return(second_results)
+
+      allow(elasticsearch_client).to receive(:scroll)
+        .with(body: { scroll_id: 's124' }, scroll: '10m')
+        .and_return(empty_results)
     end
 
     it 'returns an enumerator' do
