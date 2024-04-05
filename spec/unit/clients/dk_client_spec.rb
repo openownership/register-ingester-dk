@@ -43,15 +43,15 @@ RSpec.describe RegisterIngesterDk::Clients::DkClient do
 
     before do
       allow(elasticsearch_client).to receive(:search)
-        .with(hash_including(scroll: '10m'))
+        .with(hash_including(scroll: '1h'))
         .and_return(first_results)
 
       allow(elasticsearch_client).to receive(:scroll)
-        .with(body: { scroll_id: 's123' }, scroll: '10m')
+        .with(body: { scroll_id: 's123' }, scroll: '1h')
         .and_return(second_results)
 
       allow(elasticsearch_client).to receive(:scroll)
-        .with(body: { scroll_id: 's124' }, scroll: '10m')
+        .with(body: { scroll_id: 's124' }, scroll: '1h')
         .and_return(empty_results)
     end
 
