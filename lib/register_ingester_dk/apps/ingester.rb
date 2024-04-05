@@ -25,8 +25,10 @@ module RegisterIngesterDk
       end
 
       def call
+        n = 0
         dk_client.all_records.lazy.each_slice(CHUNK_SIZE) do |records|
-          puts "#{Time.now} #{records.count}"
+          n += records.count
+          puts "[#{Time.now}] #{n}"
           records = records.map do |record|
             RegisterSourcesDk::Record[record]
           end.map(&:Vrdeltagerperson).compact
