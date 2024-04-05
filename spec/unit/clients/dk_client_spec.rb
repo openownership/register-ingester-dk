@@ -46,7 +46,7 @@ RSpec.describe RegisterIngesterDk::Clients::DkClient do
         .and_return(first_results)
 
       allow(elasticsearch_client).to receive(:scroll)
-        .with(body: { scroll_id: 's123' }, scroll: '5m')
+        .with(body: { scroll_id: 's123' }, scroll: '10m')
         .and_return(second_results, empty_results)
     end
 
