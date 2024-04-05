@@ -10,7 +10,7 @@ require_relative '../records_handler'
 module RegisterIngesterDk
   module Apps
     class Ingester
-      CHUNK_SIZE = 50
+      CHUNK_SIZE = 500
 
       def self.bash_call(_args)
         Ingester.new.call
@@ -25,7 +25,10 @@ module RegisterIngesterDk
       end
 
       def call
+        n = 0
         dk_client.all_records.lazy.each_slice(CHUNK_SIZE) do |records|
+          n += records.count
+          puts "[#{Time.now}] " + format('%9s', n)
           records = records.map do |record|
             RegisterSourcesDk::Record[record]
           end.map(&:Vrdeltagerperson).compact
